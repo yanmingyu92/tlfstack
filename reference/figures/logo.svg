@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='124.70pt' height='144.00pt' viewBox='0 0 124.70 144.00'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: none;'/>
+<defs>
+  <clipPath id='cpMC4wMHwxMjQuNzB8MC4wMHwxNDQuMDA='>
+    <rect x='0.00' y='0.00' width='124.70' height='144.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHwxMjQuNzB8MC4wMHwxNDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMC4wMHwxMjQuNzB8MC40NHwxNDMuNTY='>
+    <rect x='0.00' y='0.44' width='124.70' height='143.13' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHwxMjQuNzB8MC40NHwxNDMuNTY=)'>
+<rect x='0.00' y='0.44' width='124.70' height='143.13' style='stroke-width: 0.00; stroke: none;' />
+</g>
+<g clip-path='url(#cpMC4wMHwxMjQuNzB8MC4wMHwxNDQuMDA=)'>
+</g>
+<g clip-path='url(#cpMC4wMHwxMjQuNzB8MC40NHwxNDMuNTY=)'>
+<rect x='0.00' y='0.44' width='124.70' height='143.13' style='stroke-width: 0.00; stroke: none;' />
+<polygon points='62.35,3.63 3.14,37.81 3.14,106.19 62.35,140.37 121.57,106.19 121.57,37.81 ' style='stroke-width: 4.69; stroke: #4477AA; stroke-linecap: butt; fill: #1B2A41;' />
+<polygon points='22.67,81.21 62.35,59.95 102.03,81.21 62.35,102.47 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #228833;' />
+<polygon points='22.67,81.21 62.35,102.47 62.35,107.78 22.67,86.53 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #186225;' />
+<polygon points='62.35,102.47 102.03,81.21 102.03,86.53 62.35,107.78 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #134B1C;' />
+<polygon points='22.67,64.91 62.35,43.66 102.03,64.91 62.35,86.17 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #EE6677;' />
+<polygon points='22.67,64.91 62.35,86.17 62.35,91.48 22.67,70.23 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #AB4956;' />
+<polygon points='62.35,86.17 102.03,64.91 102.03,70.23 62.35,91.48 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #833841;' />
+<polygon points='22.67,48.62 62.35,27.36 102.03,48.62 62.35,69.87 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #4477AA;' />
+<polygon points='22.67,48.62 62.35,69.87 62.35,75.19 22.67,53.93 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #31567A;' />
+<polygon points='62.35,69.87 102.03,48.62 102.03,53.93 62.35,75.19 ' style='stroke-width: 0.75; stroke: #1B2A41; stroke-linecap: butt; fill: #25415E;' />
+<line x1='69.10' y1='34.38' x2='35.77' y2='52.23' style='stroke-width: 0.96; stroke: #FFFFFF; stroke-opacity: 0.55; stroke-linecap: butt;' />
+<line x1='79.02' y1='39.69' x2='45.69' y2='57.55' style='stroke-width: 0.96; stroke: #FFFFFF; stroke-opacity: 0.55; stroke-linecap: butt;' />
+<line x1='88.94' y1='45.00' x2='55.61' y2='62.86' style='stroke-width: 0.96; stroke: #FFFFFF; stroke-opacity: 0.55; stroke-linecap: butt;' />
+<line x1='52.30' y1='36.15' x2='85.63' y2='54.00' style='stroke-width: 0.96; stroke: #FFFFFF; stroke-opacity: 0.55; stroke-linecap: butt;' />
+<line x1='39.07' y1='43.23' x2='72.40' y2='61.09' style='stroke-width: 0.96; stroke: #FFFFFF; stroke-opacity: 0.55; stroke-linecap: butt;' />
+<polyline points='29.82,49.04 38.54,44.37 45.69,48.19 54.42,43.52 61.16,47.13 69.10,42.88 74.26,45.64 82.19,41.39 ' style='stroke-width: 2.45; stroke: #FFFFFF;' />
+<text x='62.35' y='121.03' text-anchor='middle' style='font-size: 18.21px; font-weight: bold;fill: #FFFFFF; font-family: "Arial";' textLength='63.75px' lengthAdjust='spacingAndGlyphs'>tlfstack</text>
+<text x='62.35' y='127.99' text-anchor='middle' style='font-size: 5.98px;fill: #C8D3E3; font-family: "Arial";' textLength='62.62px' lengthAdjust='spacingAndGlyphs'>tables · listings · figures</text>
+</g>
+<g clip-path='url(#cpMC4wMHwxMjQuNzB8MC4wMHwxNDQuMDA=)'>
+</g>
+</g>
+</svg>
