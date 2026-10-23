@@ -19,6 +19,11 @@ reporting system described in a SESUG 2026 conference paper.
   then snapshot, then a TODO placeholder with a warning.
 * A JSON/YAML TOC interchange format (`toc_write()`, `toc_source_file()`) with a
   published JSON Schema.
+* pharmaverse interoperability: `as_tlf_table()` renders gtsummary tables and
+  cards Analysis Results Data under tlfstack conventions. gtsummary footnotes
+  are kept as builder footnotes. `tlf_ard()` and `tlf_write_ard()` export the
+  ARD, one row per statistic, for QC. Registered builders may return
+  gtsummary tables.
 * Crash-isolated figure rendering with bounded retries and a CSV attempt log
   (`tlf_run_isolated()`, `tlf_rtf_figure()`).
 
@@ -47,4 +52,4 @@ reporting system described in a SESUG 2026 conference paper.
 * MMRM, subgroup regression and observed-case efficacy tables.
 * Backoff between render retries, detection of deterministic crashes, and a
   placeholder RTF in batch mode when retries are exhausted.
-* Analysis Results Data (cards/cardx) as an alternative builder input.
+* Analysis Results Data output from tlfstack's own builders.

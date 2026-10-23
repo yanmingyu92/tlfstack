@@ -26,6 +26,7 @@ It rests on two design principles:
 | Dispatcher | `tlf_build_table()`, `tlf_build_figure()`, `tlf_register_table()`, `tlf_register_figure()` |
 | Titles and TOC | `tlf_titles()`, `tlf_resolve_titles()` (live, then snapshot, then fallback), `toc_source_db()`, `toc_source_file()`, `toc_source_dir()`, `toc_read()`, `toc_write()` |
 | Convention engine | `theme_tlf_submission()`, `tlf_rtf_table()`, `tlf_rtf_listing()`, `tlf_rtf_figure()` |
+| pharmaverse interop | `as_tlf_table()` (gtsummary tables, cards ARD, data frames), `tlf_ard()`, `tlf_write_ard()` |
 | Crash isolation | `tlf_run_isolated()`: figure rendering in a callr child process with bounded retries and an attempt log |
 
 ## Example
@@ -47,6 +48,23 @@ titles <- tlf_resolve_titles(
 res <- tlf_build_table("demographics", list(adsl = ex_adsl))
 tlf_rtf_table(res, file.path(tempdir(), titles$output_file_name), titles = titles)
 ```
+
+## Bring your own table body: gtsummary and ARD
+
+Any gtsummary table, or Analysis Results Data from cards/cardx, renders under
+the same conventions and TOC titles:
+
+```r
+library(gtsummary)
+body <- tbl_summary(ex_adsl, by = TRT01A, include = c(AGE, SEX, RACE))
+tlf_rtf_table(body, "t-14-01-01-demog.rtf", titles = titles)  # titles from the TOC
+
+tlf_write_ard(body, "t-14-01-01-demog-ard.csv")  # one row per statistic, for QC against SAS
+```
+
+gtsummary footnotes are placed after the TOC footnotes. Builders registered
+with `tlf_register_table()` may return gtsummary tables, so the batch/preview
+dispatcher works with them too.
 
 ## Title metadata as a file
 
@@ -76,9 +94,11 @@ The format has a published JSON Schema:
 tlfstack does not replace the table-construction or interactive-review
 packages. Its scope is what sits *around* them:
 
-- **rtables, gtsummary, Tplyr** build table bodies. tlfstack renders
-  pre-formatted data frames, so a body from any of them can go through its
-  renderers.
+- **gtsummary and cards/cardx** build table bodies and Analysis Results
+  Data. tlfstack renders gtsummary tables and ARD directly (`as_tlf_table()`),
+  adding the page conventions, TOC titles and RTF output around them.
+- **rtables, Tplyr** build table bodies too. tlfstack renders pre-formatted
+  data frames, so their output can also go through its renderers.
 - **tfrmt** expresses a table's layout as metadata for review before
   database lock. tlfstack adds page and figure conventions and TOC-driven
   titles for locked output. The two are complementary.
@@ -94,7 +114,14 @@ shared with SAS, and crash-tolerant figure rendering.
 
 ## Installation
 
-tlfstack is not yet on CRAN.
+tlfstack is not yet on CRAN. Install the development version from GitHub:
+
+```r
+# install.packages("pak")
+pak::pak("yanmingyu92/tlfstack")
+```
+
+Documentation: <https://yanmingyu92.github.io/tlfstack/>
 
 ## Status
 

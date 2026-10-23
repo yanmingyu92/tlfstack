@@ -22,7 +22,8 @@ tlf_unregister(type, kind = c("table", "figure"))
 \item{type}{Type key, for example \code{"vitals"}.}
 
 \item{fun}{For tables: \verb{function(data, opts, config)}, where \code{data} is a
-named list of data frames; it must return a \code{\link[=tlf_table_result]{tlf_table_result()}}. For
+named list of data frames; it must return a \code{\link[=tlf_table_result]{tlf_table_result()}}, a data
+frame, a gtsummary table or a cards \code{card} (see \code{\link[=as_tlf_table]{as_tlf_table()}}). For
 figures: \verb{function(df, ctx, opts, config)}; it must return a ggplot.}
 
 \item{label}{Human-readable label, for example for a selection menu.}

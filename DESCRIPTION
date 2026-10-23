@@ -25,7 +25,9 @@ Imports:
     grDevices,
     methods
 Suggests:
+    cards,
     DBI,
+    gtsummary (>= 2.0.0),
     jsonlite,
     knitr,
     ragg,

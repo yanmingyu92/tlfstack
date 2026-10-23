@@ -23,7 +23,7 @@ test_that("organizations can register and remove their own builders", {
   withr::defer(tlf_unregister("n_by_arm"))
   expect_true("n_by_arm" %in% tlf_table_types()$type)
   expect_s3_class(tlf_build_table("n_by_arm", list(adsl = ex_adsl)), "tlf_table")
-  tlf_register_table("bad", function(data, opts, config) data.frame())
+  tlf_register_table("bad", function(data, opts, config) 1L)
   withr::defer(tlf_unregister("bad"))
   expect_error(tlf_build_table("bad", list()), "did not return")
   expect_error(tlf_register_table("bad key", identity), "identifier")

@@ -25,8 +25,9 @@ tlf_rtf_listing(
 )
 }
 \arguments{
-\item{x}{A \code{tlf_table} result from a builder, or a pre-formatted data
-frame whose cells are printed as-is.}
+\item{x}{A \code{tlf_table} result from a builder, a pre-formatted data frame
+whose cells are printed as-is, a gtsummary table, or a cards \code{card} object;
+anything \code{\link[=as_tlf_table]{as_tlf_table()}} can convert.}
 
 \item{file}{Output \code{.rtf} path.}
 

@@ -110,17 +110,11 @@ apply_footer <- function(doc, titles, cfg, font) {
 
 # Accept a tlf_table result or a pre-formatted data frame.
 table_parts <- function(x, col_rel_width, text_justification) {
-  if (inherits(x, "tlf_table")) {
-    df <- x$df
-    col_rel_width <- or_default(col_rel_width, x$col_rel_width)
-    text_justification <- or_default(text_justification, x$text_justification)
-    notes <- x$footnotes
-  } else if (is.data.frame(x)) {
-    df <- x
-    notes <- character()
-  } else {
-    tlf_abort("`x` must be a tlf_table result or a data frame.")
-  }
+  x <- as_tlf_table(x)
+  df <- x$df
+  col_rel_width <- or_default(col_rel_width, x$col_rel_width)
+  text_justification <- or_default(text_justification, x$text_justification)
+  notes <- x$footnotes
   if (!ncol(df)) tlf_abort("Table has no columns.")
   df[] <- lapply(df, function(v) ifelse(is.na(v), "", as.character(v)))
   if (!nrow(df)) {
@@ -148,8 +142,9 @@ table_parts <- function(x, col_rel_width, text_justification) {
 #'
 #' Tables and listings need no graphics device and render in-process.
 #'
-#' @param x A `tlf_table` result from a builder, or a pre-formatted data
-#'   frame whose cells are printed as-is.
+#' @param x A `tlf_table` result from a builder, a pre-formatted data frame
+#'   whose cells are printed as-is, a gtsummary table, or a cards `card` object;
+#'   anything [as_tlf_table()] can convert.
 #' @param file Output `.rtf` path.
 #' @param titles A [tlf_titles()] object (for example from
 #'   [tlf_resolve_titles()]), a character vector of title lines, or `NULL`.

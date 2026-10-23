@@ -13,7 +13,8 @@
 #'
 #' @param type Type key, for example `"vitals"`.
 #' @param fun For tables: `function(data, opts, config)`, where `data` is a
-#'   named list of data frames; it must return a [tlf_table_result()]. For
+#'   named list of data frames; it must return a [tlf_table_result()], a data
+#'   frame, a gtsummary table or a cards `card` (see [as_tlf_table()]). For
 #'   figures: `function(df, ctx, opts, config)`; it must return a ggplot.
 #' @param label Human-readable label, for example for a selection menu.
 #' @param class For tables: `"Table"` or `"Listing"`.
@@ -111,8 +112,10 @@ tlf_build_table <- function(type, data, opts = list(), config = NULL) {
   miss <- setdiff(entry$domains[1], names(data))
   if (length(entry$domains) && length(miss)) tlf_abort("Table type '", type, "' needs data$", miss, ".")
   out <- entry$fun(data, opts, config)
-  if (!inherits(out, "tlf_table")) tlf_abort("Builder for '", type, "' did not return a tlf_table result.")
-  out
+  if (!inherits(out, c("tlf_table", "data.frame", "gtsummary", "card"))) {
+    tlf_abort("Builder for '", type, "' did not return a tlf_table, data frame, gtsummary table or card.")
+  }
+  as_tlf_table(out)
 }
 
 #' @rdname tlf_build_table
