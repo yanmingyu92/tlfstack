@@ -2,6 +2,8 @@
 
 ## All functions
 
+- [`as_tlf_table()`](https://yanmingyu92.github.io/tlfstack/reference/as_tlf_table.md)
+  : Convert a table body to a tlfstack table
 - [`ex_toc`](https://yanmingyu92.github.io/tlfstack/reference/ex_toc.md)
   : Example table of contents
 - [`example_data`](https://yanmingyu92.github.io/tlfstack/reference/example_data.md)
@@ -59,6 +61,9 @@
   : Time-to-event summary
 - [`theme_tlf_submission()`](https://yanmingyu92.github.io/tlfstack/reference/theme_tlf_submission.md)
   : Figure body theme
+- [`tlf_ard()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_ard.md)
+  [`tlf_write_ard()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_ard.md)
+  : Analysis Results Data behind a table
 - [`tlf_build_table()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_build_table.md)
   [`tlf_build_figure()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_build_table.md)
   : Build a registered table, listing or figure

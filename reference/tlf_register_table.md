@@ -30,7 +30,9 @@ tlf_unregister(type, kind = c("table", "figure"))
 
   For tables: `function(data, opts, config)`, where `data` is a named
   list of data frames; it must return a
-  [`tlf_table_result()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_table_result.md).
+  [`tlf_table_result()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_table_result.md),
+  a data frame, a gtsummary table or a cards `card` (see
+  [`as_tlf_table()`](https://yanmingyu92.github.io/tlfstack/reference/as_tlf_table.md)).
   For figures: `function(df, ctx, opts, config)`; it must return a
   ggplot.
 

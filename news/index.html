@@ -42,6 +42,7 @@
 <li>Structured title blocks (<code><a href="../reference/tlf_titles.html">tlf_titles()</a></code>) with <code>{placeholder}</code> filling and provenance.</li>
 <li>Three-mode title resolution (<code><a href="../reference/tlf_resolve_titles.html">tlf_resolve_titles()</a></code>): live DBI source, then snapshot, then a TODO placeholder with a warning.</li>
 <li>A JSON/YAML TOC interchange format (<code><a href="../reference/toc_write.html">toc_write()</a></code>, <code><a href="../reference/toc_sources.html">toc_source_file()</a></code>) with a published JSON Schema.</li>
+<li>pharmaverse interoperability: <code><a href="../reference/as_tlf_table.html">as_tlf_table()</a></code> renders gtsummary tables and cards Analysis Results Data under tlfstack conventions. gtsummary footnotes are kept as builder footnotes. <code><a href="../reference/tlf_ard.html">tlf_ard()</a></code> and <code><a href="../reference/tlf_ard.html">tlf_write_ard()</a></code> export the ARD, one row per statistic, for QC. Registered builders may return gtsummary tables.</li>
 <li>Crash-isolated figure rendering with bounded retries and a CSV attempt log (<code><a href="../reference/tlf_run_isolated.html">tlf_run_isolated()</a></code>, <code><a href="../reference/tlf_rtf_figure.html">tlf_rtf_figure()</a></code>).</li>
 </ul></div>
 <div class="section level3">
@@ -58,7 +59,7 @@
 <h3 id="not-included-planned-0-1-0">Not included (planned)<a class="anchor" aria-label="anchor" href="#not-included-planned-0-1-0"></a></h3>
 <ul><li>MMRM, subgroup regression and observed-case efficacy tables.</li>
 <li>Backoff between render retries, detection of deterministic crashes, and a placeholder RTF in batch mode when retries are exhausted.</li>
-<li>Analysis Results Data (cards/cardx) as an alternative builder input.</li>
+<li>Analysis Results Data output from tlfstack’s own builders.</li>
 </ul></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -179,7 +179,38 @@ tlf_rtf_figure(p, file.path(out, "f-km.rtf"),
                render = tlf_render_opts(log_file = file.path(out, "render-log.csv")))
 ```
 
-## 5. One code path, two modes
+## 5. gtsummary and Analysis Results Data
+
+The table body can come from gtsummary or from cards ARD. tlfstack then
+adds the same page conventions, TOC titles and RTF rendering:
+
+``` r
+
+body <- gtsummary::tbl_summary(ex_adsl, by = TRT01A, include = c(AGE, SEX))
+tb <- as_tlf_table(body)
+tb$footnotes
+#> [1] "Median (Q1, Q3); n (%)"
+tlf_rtf_table(body, file.path(out, "t-demog-gtsummary.rtf"), titles = titles)
+```
+
+The Analysis Results Data behind the table can be exported, one row per
+statistic, for numeric comparison with an independent SAS result:
+
+``` r
+
+ard_file <- file.path(out, "t-demog-ard.csv")
+tlf_write_ard(body, ard_file)
+head(read.csv(ard_file)[, c("component", "variable", "group1_level", "stat_name", "stat")])
+#>     component variable group1_level stat_name stat
+#> 1 tbl_summary      SEX   Drug 10 mg         n   12
+#> 2 tbl_summary      SEX   Drug 10 mg         N   20
+#> 3 tbl_summary      SEX   Drug 10 mg         p  0.6
+#> 4 tbl_summary      SEX   Drug 10 mg         n    8
+#> 5 tbl_summary      SEX   Drug 10 mg         N   20
+#> 6 tbl_summary      SEX   Drug 10 mg         p  0.4
+```
+
+## 6. One code path, two modes
 
 A batch program and a Shiny app differ only at the two ends:
 

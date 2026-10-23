@@ -31,6 +31,16 @@ reporting system described in a SESUG 2026 conference paper.
   ([`toc_write()`](https://yanmingyu92.github.io/tlfstack/reference/toc_write.md),
   [`toc_source_file()`](https://yanmingyu92.github.io/tlfstack/reference/toc_sources.md))
   with a published JSON Schema.
+- pharmaverse interoperability:
+  [`as_tlf_table()`](https://yanmingyu92.github.io/tlfstack/reference/as_tlf_table.md)
+  renders gtsummary tables and cards Analysis Results Data under
+  tlfstack conventions. gtsummary footnotes are kept as builder
+  footnotes.
+  [`tlf_ard()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_ard.md)
+  and
+  [`tlf_write_ard()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_ard.md)
+  export the ARD, one row per statistic, for QC. Registered builders may
+  return gtsummary tables.
 - Crash-isolated figure rendering with bounded retries and a CSV attempt
   log
   ([`tlf_run_isolated()`](https://yanmingyu92.github.io/tlfstack/reference/tlf_run_isolated.md),
@@ -63,4 +73,4 @@ reporting system described in a SESUG 2026 conference paper.
 - MMRM, subgroup regression and observed-case efficacy tables.
 - Backoff between render retries, detection of deterministic crashes,
   and a placeholder RTF in batch mode when retries are exhausted.
-- Analysis Results Data (cards/cardx) as an alternative builder input.
+- Analysis Results Data output from tlfstack’s own builders.

@@ -104,6 +104,12 @@
 </td>
 </tr>
 <tr>
+<td>pharmaverse interop</td>
+<td>
+<code><a href="reference/as_tlf_table.html">as_tlf_table()</a></code> (gtsummary tables, cards ARD, data frames), <code><a href="reference/tlf_ard.html">tlf_ard()</a></code>, <code><a href="reference/tlf_ard.html">tlf_write_ard()</a></code>
+</td>
+</tr>
+<tr>
 <td>Crash isolation</td>
 <td>
 <code><a href="reference/tlf_run_isolated.html">tlf_run_isolated()</a></code>: figure rendering in a callr child process with bounded retries and an attempt log</td>
@@ -132,21 +138,33 @@
 <span><span class="fu"><a href="reference/tlf_rtf_table.html">tlf_rtf_table</a></span><span class="op">(</span><span class="va">res</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="va">titles</span><span class="op">$</span><span class="va">output_file_name</span><span class="op">)</span>, titles <span class="op">=</span> <span class="va">titles</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
+<h2 id="bring-your-own-table-body-gtsummary-and-ard">Bring your own table body: gtsummary and ARD<a class="anchor" aria-label="anchor" href="#bring-your-own-table-body-gtsummary-and-ard"></a>
+</h2>
+<p>Any gtsummary table, or Analysis Results Data from cards/cardx, renders under the same conventions and TOC titles:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/ddsjoberg/gtsummary" class="external-link">gtsummary</a></span><span class="op">)</span></span>
+<span><span class="va">body</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://www.danieldsjoberg.com/gtsummary/reference/tbl_summary.html" class="external-link">tbl_summary</a></span><span class="op">(</span><span class="va">ex_adsl</span>, by <span class="op">=</span> <span class="va">TRT01A</span>, include <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">AGE</span>, <span class="va">SEX</span>, <span class="va">RACE</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/tlf_rtf_table.html">tlf_rtf_table</a></span><span class="op">(</span><span class="va">body</span>, <span class="st">"t-14-01-01-demog.rtf"</span>, titles <span class="op">=</span> <span class="va">titles</span><span class="op">)</span>  <span class="co"># titles from the TOC</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/tlf_ard.html">tlf_write_ard</a></span><span class="op">(</span><span class="va">body</span>, <span class="st">"t-14-01-01-demog-ard.csv"</span><span class="op">)</span>  <span class="co"># one row per statistic, for QC against SAS</span></span></code></pre></div>
+<p>gtsummary footnotes are placed after the TOC footnotes. Builders registered with <code><a href="reference/tlf_register_table.html">tlf_register_table()</a></code> may return gtsummary tables, so the batch/preview dispatcher works with them too.</p>
+</div>
+<div class="section level2">
 <h2 id="title-metadata-as-a-file">Title metadata as a file<a class="anchor" aria-label="anchor" href="#title-metadata-as-a-file"></a>
 </h2>
 <p><code><a href="reference/toc_write.html">toc_write()</a></code> dumps any TOC, including a live database table, to JSON or YAML for offline work, code review and other languages:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">tlfstack_toc</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2026-10-22T09:00:00+0000</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">source</span><span class="kw">:</span><span class="at"> database</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">outputs</span><span class="kw">:</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">program</span><span class="kw">:</span><span class="at"> t_demo</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">    </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">study</span><span class="kw">:</span><span class="at"> STUDY01</span><span class="kw">}</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> Table</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">    </span><span class="fu">number</span><span class="kw">:</span><span class="at"> </span><span class="st">"14.1.1"</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Summary of Demographic and Baseline Characteristics</span><span class="kw">]</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">    </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Safety Population</span><span class="kw">]</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">    </span><span class="fu">footnotes</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Percentages are based on the number of subjects in each column.</span><span class="kw">]</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">    </span><span class="fu">output_file_name</span><span class="kw">:</span><span class="at"> t-14-01-01-demog.rtf</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">tlfstack_toc</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">generated_at</span><span class="kw">:</span><span class="at"> 2026-10-22T09:00:00+0000</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">source</span><span class="kw">:</span><span class="at"> database</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">outputs</span><span class="kw">:</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">program</span><span class="kw">:</span><span class="at"> t_demo</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="at">    </span><span class="fu">scope</span><span class="kw">:</span><span class="at"> </span><span class="kw">{</span><span class="fu">study</span><span class="kw">:</span><span class="at"> STUDY01</span><span class="kw">}</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="at">    </span><span class="fu">type</span><span class="kw">:</span><span class="at"> Table</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="at">    </span><span class="fu">number</span><span class="kw">:</span><span class="at"> </span><span class="st">"14.1.1"</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="at">    </span><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Summary of Demographic and Baseline Characteristics</span><span class="kw">]</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="at">    </span><span class="fu">subtitle</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Safety Population</span><span class="kw">]</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="at">    </span><span class="fu">footnotes</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">Percentages are based on the number of subjects in each column.</span><span class="kw">]</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="at">    </span><span class="fu">output_file_name</span><span class="kw">:</span><span class="at"> t-14-01-01-demog.rtf</span></span></code></pre></div>
 <p>The format has a published JSON Schema: <code>system.file("schema", "tlfstack-toc-v1.schema.json", package = "tlfstack")</code>.</p>
 </div>
 <div class="section level2">
@@ -155,7 +173,9 @@
 <p>tlfstack does not replace the table-construction or interactive-review packages. Its scope is what sits <em>around</em> them:</p>
 <ul>
 <li>
-<strong>rtables, gtsummary, Tplyr</strong> build table bodies. tlfstack renders pre-formatted data frames, so a body from any of them can go through its renderers.</li>
+<strong>gtsummary and cards/cardx</strong> build table bodies and Analysis Results Data. tlfstack renders gtsummary tables and ARD directly (<code><a href="reference/as_tlf_table.html">as_tlf_table()</a></code>), adding the page conventions, TOC titles and RTF output around them.</li>
+<li>
+<strong>rtables, Tplyr</strong> build table bodies too. tlfstack renders pre-formatted data frames, so their output can also go through its renderers.</li>
 <li>
 <strong>tfrmt</strong> expresses a table’s layout as metadata for review before database lock. tlfstack adds page and figure conventions and TOC-driven titles for locked output. The two are complementary.</li>
 <li>
@@ -170,7 +190,11 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>tlfstack is not yet on CRAN.</p>
+<p>tlfstack is not yet on CRAN. Install the development version from GitHub:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"yanmingyu92/tlfstack"</span><span class="op">)</span></span></code></pre></div>
+<p>Documentation: <a href="https://yanmingyu92.github.io/tlfstack/" class="uri">https://yanmingyu92.github.io/tlfstack/</a></p>
 </div>
 <div class="section level2">
 <h2 id="status">Status<a class="anchor" aria-label="anchor" href="#status"></a>

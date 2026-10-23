@@ -33,8 +33,11 @@ tlf_rtf_listing(
 
 - x:
 
-  A `tlf_table` result from a builder, or a pre-formatted data frame
-  whose cells are printed as-is.
+  A `tlf_table` result from a builder, a pre-formatted data frame whose
+  cells are printed as-is, a gtsummary table, or a cards `card` object;
+  anything
+  [`as_tlf_table()`](https://yanmingyu92.github.io/tlfstack/reference/as_tlf_table.md)
+  can convert.
 
 - file:
 

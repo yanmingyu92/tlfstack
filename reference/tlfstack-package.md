@@ -9,6 +9,16 @@ snapshot and fallback modes; and figure rendering can run in an isolated
 child process with bounded retries. The same builders serve scheduled
 batch programs and interactive previews.
 
+## See also
+
+Useful links:
+
+- <https://github.com/yanmingyu92/tlfstack>
+
+- <https://yanmingyu92.github.io/tlfstack/>
+
+- Report bugs at <https://github.com/yanmingyu92/tlfstack/issues>
+
 ## Author
 
 **Maintainer**: Jaime Yan <yanmingyunmt@gmail.com> \[copyright holder\]
