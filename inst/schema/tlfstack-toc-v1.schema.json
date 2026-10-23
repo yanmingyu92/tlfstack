@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tlfstack-toc-v1.schema.json",
+  "title": "tlfstack table-of-contents snapshot, format version 1",
+  "description": "Titles, footnotes and file names of clinical outputs (tables, listings, figures). Written by tlfstack::toc_write(); read by tlfstack::toc_source_file(). The same structure is used for JSON and YAML.",
+  "type": "object",
+  "required": ["tlfstack_toc", "outputs"],
+  "properties": {
+    "tlfstack_toc": { "const": 1, "description": "Format version." },
+    "generated_at": { "type": "string", "description": "When the snapshot was written (ISO 8601)." },
+    "source": { "type": "string", "description": "Where the snapshot came from, e.g. a database label." },
+    "outputs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["program", "title"],
+        "properties": {
+          "program": { "type": "string", "description": "Producing program name, without extension." },
+          "scope": {
+            "type": "object",
+            "description": "Scope values (e.g. study, milestone). An absent key applies to every scope.",
+            "additionalProperties": { "type": "string" }
+          },
+          "type": { "enum": ["Table", "Figure", "Listing"] },
+          "number": { "type": "string", "description": "Output number, kept as a string (e.g. \"14.1.10\")." },
+          "title": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "subtitle": { "type": "array", "items": { "type": "string" } },
+          "footnotes": { "type": "array", "items": { "type": "string" } },
+          "output_file_name": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,144 @@
+---
+title: "Getting started with tlfstack"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with tlfstack}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+```{r setup}
+library(tlfstack)
+out <- tempfile("tlfstack-")
+dir.create(out)
+```
+
+tlfstack separates clinical reporting into three seams:
+
+- **Builders** turn analysis data into a table object or a ggplot.
+- **Title resolution** turns metadata into a title block.
+- **Renderers** turn both into submission-style RTF under one set of
+  conventions.
+
+Because builders are pure functions, a batch program and an interactive app
+can share all three seams.
+
+## 1. Conventions as configuration
+
+```{r}
+cfg <- tlf_config(header_left = "Example Organization")
+cfg
+```
+
+An organization usually sets this once per session, for example from a site
+profile: `options(tlfstack.config = cfg)`. Alternatively, point the
+`TLFSTACK_CONFIG` environment variable at a YAML file. Every renderer and
+builder resolves its configuration through `tlf_get_config()`.
+
+## 2. Builders: data in, object out
+
+```{r}
+demo <- tbl_demographics(ex_adsl)
+demo
+```
+
+The dispatcher routes a typed request to the right builder, which is how an
+app offers a menu of outputs:
+
+```{r}
+tlf_table_types()[, c("type", "class")]
+ae <- tlf_build_table("ae", list(adae = ex_adae, adsl = ex_adsl))
+```
+
+Figures work the same way:
+
+```{r, fig.width = 7, fig.height = 4.5, fig.alt = "Mean ALT with 95% confidence intervals by visit for three treatment arms."}
+alt <- ex_adlb[ex_adlb$PARAMCD == "ALT", ]
+tlf_build_figure("meanci", alt, opts = list(show_n = TRUE))
+```
+
+## 3. Titles from a table of contents
+
+Titles, footnotes and output file names come from a TOC. Sources are tried
+in order. A reachable live source is authoritative; if no source can be
+read, the result is a TODO placeholder plus a warning, so a dry run is never
+blocked.
+
+```{r}
+toc_file <- file.path(out, "toc_snapshot.yml")
+toc_write(ex_toc, toc_file, source = "vignette example")
+titles <- tlf_resolve_titles(
+  "t_demo",
+  sources = list(toc_source_dir(out)),
+  scope = list(study = "STUDY01"),
+  source = "Program: t_demo.R"
+)
+titles
+titles$provenance$mode
+```
+
+In production the first source would be the live database, read through a
+connector you own. tlfstack never reads credentials:
+
+```{r, eval = FALSE}
+connect <- function() DBI::dbConnect(odbc::odbc(), dsn = "toc")
+sources <- list(toc_source_db(connect, DBI::Id(schema = "dbo", table = "toc")),
+                toc_source_dir("metadata"))
+```
+
+A program that produces several outputs selects its row with `number`, and
+`{placeholders}` in the metadata are filled explicitly:
+
+```{r}
+tlf_resolve_titles("t_eff", sources = toc_source_dir(out), scope = list(study = "STUDY01"),
+                   number = "14.2.1", vars = list(param = "Alanine Aminotransferase"))$title
+```
+
+## 4. Rendering
+
+```{r}
+f <- file.path(out, titles$output_file_name)
+tlf_rtf_table(demo, f, titles = titles)
+file.exists(f)
+```
+
+Text is written verbatim: `t_demo.R` stays `t_demo.R`, braces and
+backslashes are escaped, and non-ASCII characters are written as RTF
+Unicode.
+
+Figures render by default in an isolated child process with bounded
+retries. A native crash in the graphics stack then becomes a retriable
+error instead of killing the session:
+
+```{r, eval = FALSE}
+p <- tlf_build_figure("km", ex_adtte)
+tlf_rtf_figure(p, file.path(out, "f-km.rtf"),
+               titles = tlf_titles("Kaplan-Meier Estimate of PFS", type = "Figure", number = "14.2.4"),
+               render = tlf_render_opts(log_file = file.path(out, "render-log.csv")))
+```
+
+## 5. One code path, two modes
+
+A batch program and a Shiny app differ only at the two ends:
+
+```{r, eval = FALSE}
+# Batch: read -> build -> resolve -> render to the deliverables folder.
+res <- tlf_build_table("demographics", list(adsl = adsl))
+tlf_rtf_table(res, file.path(output_dir, titles$output_file_name), titles = titles)
+
+# Shiny: the same build and render, written to the download handler's file.
+output$download <- shiny::downloadHandler(
+  filename = function() titles$output_file_name,
+  content = function(file) {
+    res <- tlf_build_table(input$type, list(adsl = adsl()))
+    tlf_rtf_table(res, file, titles = titles)
+  }
+)
+```
+
+Complete examples ship with the package in
+`system.file("examples", package = "tlfstack")`.
