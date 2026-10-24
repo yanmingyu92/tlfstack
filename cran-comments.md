@@ -6,6 +6,12 @@
 
 ## Test environments
 
-* local Windows 11, R 4.6.0
-* GitHub Actions: ubuntu-latest (devel, release, oldrel-1), windows-latest (release), macos-latest (release)
-* win-builder (devel and release)
+* local Windows 11, R 4.6.0 (`R CMD check --as-cran`)
+* GitHub Actions: ubuntu-latest (R-devel, R-release, R-oldrel-1),
+  windows-latest (R-release), macos-latest (R-release)
+
+## Notes for the reviewer
+
+* Tests that start child R processes (crash isolation via callr) are skipped
+  on CRAN.
+* Examples write only to `tempdir()` and need no network access.
